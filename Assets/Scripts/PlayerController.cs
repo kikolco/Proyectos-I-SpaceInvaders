@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
@@ -7,13 +8,18 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float timeBetweenShots = 1;
     [SerializeField] private GameObject ExplosionPrefab = null;
     [SerializeField] private GameObject DamageParticles = null;
-    [SerializeField] private int playerHealth = 5;
+    [SerializeField] private Slider healthBar;
+    [SerializeField] private Color low;
+    [SerializeField] private Color high;
+    [SerializeField] private int maxPlayerHealth = 10;
+    [SerializeField] private int playerHealth = 10;
     private float cooldown = 0;
     private Rigidbody2D _playerRigidbody;
 
     private void Start()
     {
         _playerRigidbody = GetComponent<Rigidbody2D>();
+        SetHealthBar(playerHealth, maxPlayerHealth);
     }
 
     private void Update()
@@ -33,6 +39,11 @@ public class PlayerController : MonoBehaviour {
         }
 
         PlayerDeath();
+    }
+
+    private void SetHealthBar(float health, float maxHealth)
+    {
+        healthBar.fillRect.GetComponentInChildren<Image>().color = Color.Lerp(low, high, healthBar.normalizedValue);
     }
 
     private void MovePlayer()
@@ -59,7 +70,8 @@ public class PlayerController : MonoBehaviour {
     void OnTriggerEnter2D(Collider2D other)//Cuando colisione con cualquier otro Collider "Trigger"
     {
         if (other.tag == "HealthPack")
-            playerHealth++;
+            if (playerHealth < maxPlayerHealth)
+                playerHealth++;
 
         if (other.tag == "EnemyLaser")//solo se ejecuta si está chocando contra un enemigo
         {

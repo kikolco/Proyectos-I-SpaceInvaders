@@ -8,6 +8,8 @@ TagManager:
   - EnemyLaser
   - PlayerLaser
   - HealthPack
+  - EnemyStop
+  - ChangeDirection
   layers:
   - Default
   - TransparentFX

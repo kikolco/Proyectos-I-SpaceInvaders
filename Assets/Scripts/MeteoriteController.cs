@@ -6,7 +6,7 @@ public class MeteoriteController : MonoBehaviour
 {
     [SerializeField] private GameObject ExplosionPrefab = null;
     [SerializeField] private float moveSpeed = 1.0f;
-    [SerializeField] private int maxHealth = 3;
+    [SerializeField] private int maxHealth = 2;
     private float health;
     
     private Rigidbody2D _meteoriteRigidbody;
@@ -21,6 +21,7 @@ public class MeteoriteController : MonoBehaviour
     void Update()
     {
         MoveLaser();
+        Death();
     }
 
     public void MoveLaser()

@@ -8,7 +8,8 @@ public class BaiscEnemyController : MonoBehaviour
     [SerializeField] private GameObject ExplosionPrefab = null;
     [SerializeField] private GameObject EnemyLaserPrefab = null;
     [SerializeField] private GameObject PowerUpPrefab = null;
-    [SerializeField] private float fireTime = 3.0f;
+    [SerializeField] private float fireTimer = 2.5f;
+    private float fireTime;
     [SerializeField] private int maxHealth = 3;
     [SerializeField] private Slider healthBar;
     [SerializeField] private float moveSpeed = 1.0f;
@@ -19,10 +20,11 @@ public class BaiscEnemyController : MonoBehaviour
 
     void Start()
     {
+        fireTime = fireTimer;
         health = maxHealth;
         HealthBar.SetHealthBar(health, maxHealth);
 
-        timerEnded();
+        FireLaser();
         _enemyRigidbody = GetComponent<Rigidbody2D>();
     }
 
@@ -30,16 +32,16 @@ public class BaiscEnemyController : MonoBehaviour
     {
         fireTime -= Time.deltaTime;
         if (fireTime <= 0.0f)
-            timerEnded();
+            FireLaser();
 
         MoveEnemy();
         Death();
     }
 
-    void timerEnded()
+    void FireLaser()
     {
         Instantiate(EnemyLaserPrefab, transform.position, Quaternion.identity);
-        fireTime = 3.0f;
+        fireTime = fireTimer;
     }
 
     public void MoveEnemy()
