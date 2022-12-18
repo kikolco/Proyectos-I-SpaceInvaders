@@ -8,18 +8,22 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] private float timeBetweenShots = 1;
     [SerializeField] private GameObject ExplosionPrefab = null;
     [SerializeField] private GameObject DamageParticles = null;
-    [SerializeField] private Slider healthBar;
-    [SerializeField] private Color low;
-    [SerializeField] private Color high;
-    [SerializeField] private int maxPlayerHealth = 10;
-    [SerializeField] private int playerHealth = 10;
+    [SerializeField] private GameObject LaserAbility = null;
+    [SerializeField] private GameObject abilityText = null;
+    [SerializeField] private int maxPlayerHealth = 6;
+    [SerializeField] private PlayerHealthBarController healthBarController;
+    [SerializeField] private GameController gameController;
+    private int playerHealth;
     private float cooldown = 0;
+    private float multiplierTimer = 60;
+    public bool laserAbility = false;
+    private float laserAbilityTmr = 40;
     private Rigidbody2D _playerRigidbody;
 
     private void Start()
     {
         _playerRigidbody = GetComponent<Rigidbody2D>();
-        SetHealthBar(playerHealth, maxPlayerHealth);
+        playerHealth = maxPlayerHealth;
     }
 
     private void Update()
@@ -33,19 +37,22 @@ public class PlayerController : MonoBehaviour {
 
         cooldown = Mathf.Max(0, cooldown - Time.deltaTime);// cálculo del cooldown
 
-        if (Input.GetButton("Jump"))//si dan al espacio llama a la función de disparar
+        if (Input.GetButton("Jump") && laserAbility == false)//si dan al espacio llama a la función de disparar
         {
         Shoot();
         }
-
+        CheckLaserAbility();
         PlayerDeath();
-    }
 
-    private void SetHealthBar(float health, float maxHealth)
-    {
-        healthBar.fillRect.GetComponentInChildren<Image>().color = Color.Lerp(low, high, healthBar.normalizedValue);
-    }
+        healthBarController.SetHealthBar(playerHealth, maxPlayerHealth);
 
+        multiplierTimer -= Time.deltaTime;
+        if (multiplierTimer <= 0)
+        {
+            ScoreManager.instance.AddMultiplier();
+            multiplierTimer = 60;
+        }
+    }
     private void MovePlayer()
     {
     var horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -67,6 +74,25 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    private void CheckLaserAbility()
+    {
+        laserAbilityTmr -= Time.deltaTime;
+
+        if (laserAbilityTmr <= 0)
+        {
+            abilityText.SetActive(true);
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                LaserAbility.SetActive(true);
+                laserAbility = true;
+                laserAbilityTmr = 40;
+                //abilityText.GetComponent<Animation>().Play("ability_text");
+            }
+        }else
+            abilityText.SetActive(false);   
+    }
+
     void OnTriggerEnter2D(Collider2D other)//Cuando colisione con cualquier otro Collider "Trigger"
     {
         if (other.tag == "HealthPack")
@@ -76,7 +102,9 @@ public class PlayerController : MonoBehaviour {
         if (other.tag == "EnemyLaser")//solo se ejecuta si está chocando contra un enemigo
         {
             playerHealth--;
-            Instantiate(DamageParticles, transform.position, Quaternion.identity);
+            multiplierTimer = 60;
+            ScoreManager.instance.RemoveMultiplier();
+            Instantiate(DamageParticles, transform.position, Quaternion.identity, this.transform);
         }
 
         if (other.tag == "Enemy")
@@ -88,7 +116,8 @@ public class PlayerController : MonoBehaviour {
         if (playerHealth <= 0)
         {
             Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
-            Destroy(this.gameObject);//destruye el rayo láser
+            gameController.GameOver();
+            Destroy(this.gameObject);
         }
     }
 }

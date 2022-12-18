@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 746115342575225896}
   - component: {fileID: 746115342575225897}
-  - component: {fileID: 746115342575225902}
   - component: {fileID: 746115342575225903}
   - component: {fileID: 8162127177784201808}
+  - component: {fileID: 2392403313615329982}
   m_Layer: 0
   m_Name: Enemy-2
   m_TagString: Enemy
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 746115342575225901}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.66, y: 7.87, z: 0}
-  m_LocalScale: {x: 1.38, y: 1.38, z: 1.38}
+  m_LocalScale: {x: 4.75, y: 4.75, z: 4.75}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4874679206599501043}
@@ -88,32 +88,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &746115342575225902
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 746115342575225901}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.04, y: 0.8}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.98, y: 0.91}
-  m_EdgeRadius: 0
 --- !u!114 &746115342575225903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,11 +101,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExplosionPrefab: {fileID: 4245205795460777510, guid: c5ada432a0a426345ac936a0af9cbb81, type: 3}
-  EnemyLaserPrefab: {fileID: 4402413623159725218, guid: 2b10cdee80454674aa474aa8d3d84dbc, type: 3}
+  EnemyLaserPrefab: {fileID: 6008218610074736575, guid: 2b10cdee80454674aa474aa8d3d84dbc, type: 3}
   PowerUpPrefab: {fileID: 5805841062749088825, guid: 9cf4c2c3a6a1be5438d7408b6a74466e, type: 3}
-  fireTime: 0.5
+  fireTimer: 2.5
   maxHealth: 3
-  healthBar: {fileID: 2549731129565832712}
   moveSpeed: 1
   HealthBar: {fileID: 4373908206842031200}
   _enemyRigidbody: {fileID: 8162127177784201808}
@@ -153,9 +126,35 @@ Rigidbody2D:
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
+--- !u!61 &2392403313615329982
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 746115342575225901}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.26, y: 0.2}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.26, y: 0.2}
+  m_EdgeRadius: 0
 --- !u!1 &2425540600951213440
 GameObject:
   m_ObjectHideFlags: 0
@@ -308,8 +307,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 2549731129565832712}
-  low: {r: 1, g: 0.1891472, b: 0.050943315, a: 0}
-  high: {r: 0, g: 0.735849, b: 0.116470106, a: 0}
+  low: {r: 1, g: 0.1891472, b: 0.050943315, a: 1}
+  high: {r: 0, g: 0.735849, b: 0.116470106, a: 1}
   Offset: {x: 0, y: 0.87, z: 0}
 --- !u!1 &5477409870487961787
 GameObject:

@@ -8,12 +8,11 @@ public class SuicideEnemyController : MonoBehaviour
     [SerializeField] private GameObject ExplosionPrefab = null;
     [SerializeField] private GameObject EnemyLaserPrefab = null;
     [SerializeField] private GameObject PowerUpPrefab = null;
-    private float changeDir = 1.0f;
+    private float changeDir = 0.5f;
     [SerializeField] private float fireTimer = 2.0f;
     private float fireTime;
     [SerializeField] private float moveSpeed = 2.0f;
     [SerializeField] private int maxHealth = 3;
-    [SerializeField] private Slider healthBar;
 
     public HealthBarController HealthBar;
     private float health;
@@ -24,7 +23,6 @@ public class SuicideEnemyController : MonoBehaviour
     {
         health = maxHealth;
         fireTime = fireTimer;
-        HealthBar.SetHealthBar(health, maxHealth);
 
         _suicideEnemyRigidbody = GetComponent<Rigidbody2D>();
         ChangeDirection();
@@ -37,18 +35,22 @@ public class SuicideEnemyController : MonoBehaviour
         if (changeDir <= 0.0f)
             ChangeDirection();
 
+        if (changeDir > 0.0f)
+            MoveEnemy();
+
         fireTime -= Time.deltaTime;
         if (fireTime <= 0.0f)
             FireLaser();
 
-        MoveEnemy();
         Death();
+
+        HealthBar.SetHealthBar(health, maxHealth);
     }
 
     void ChangeDirection()
     {
-        _suicideEnemyRigidbody.velocity = new Vector2(Random.Range(-10f, 10f), -moveSpeed);
-        changeDir = 3.0f;
+        _suicideEnemyRigidbody.velocity = new Vector2(Random.Range(-5f, 5f), -moveSpeed);
+        changeDir = 0.5f;
     }
 
     void FireLaser()
@@ -59,7 +61,20 @@ public class SuicideEnemyController : MonoBehaviour
 
     public void MoveEnemy()
     {
-        _suicideEnemyRigidbody.velocity = new Vector2(0, -moveSpeed);// cambia el vector velocidad(X, Y) por (0 y la velocidad variable)
+        _suicideEnemyRigidbody.velocity = new Vector2(_suicideEnemyRigidbody.velocity.x, -moveSpeed);// cambia el vector velocidad(X, Y) por (0 y la velocidad variable)
+    }
+
+    private void RemoveHealth()
+    {
+        float removeHealthTmr = 0.25f;
+        removeHealthTmr -= Time.deltaTime;
+
+        if (removeHealthTmr <= 0)
+        {
+            removeHealthTmr = 0.25f;
+            health--;
+        }
+
     }
 
     private void Death()
@@ -67,9 +82,10 @@ public class SuicideEnemyController : MonoBehaviour
         if (health <= 0)
         {
             ScoreManager.instance.AddPoint();//llama a la función pública que añade nuevos puntos
+            ScoreManager.instance.AddPoint();
             Instantiate(ExplosionPrefab, transform.position, Quaternion.identity);
             float powerUpChance = Random.Range(0f, 1f);
-            if (powerUpChance <= 0.8)
+            if (powerUpChance <= 0.24)
             {
                 Instantiate(PowerUpPrefab, transform.position, Quaternion.identity);
             }
@@ -88,6 +104,20 @@ public class SuicideEnemyController : MonoBehaviour
         if (other.tag == "Player")//solo se ejecuta si está chocando contra un láser del jugador
         {
             Destroy(this.gameObject);//destruye al enemigo
+        }
+    }
+    float removeHealthTmr = 0.25f;
+    void OnTriggerStay2D(Collider2D collider) 
+    {
+        if (collider.CompareTag("LaserAbility"))
+        {
+            removeHealthTmr = Mathf.Max(0, removeHealthTmr - Time.deltaTime);
+
+            if (removeHealthTmr <= 0.0)
+            {
+                removeHealthTmr = 0.25f;
+                health--;
+            }
         }
     }
 }

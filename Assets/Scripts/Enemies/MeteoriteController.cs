@@ -52,4 +52,18 @@ public class MeteoriteController : MonoBehaviour
             Destroy(this.gameObject);//destruye al enemigo
         }
     }
+    float removeHealthTmr = 0.25f;
+    void OnTriggerStay2D(Collider2D collider) 
+    {
+        if (collider.CompareTag("LaserAbility"))
+        {
+            removeHealthTmr = Mathf.Max(0, removeHealthTmr - Time.deltaTime);
+
+            if (removeHealthTmr <= 0.0)
+            {
+                removeHealthTmr = 0.25f;
+                health--;
+            }
+        }
+    }
 }

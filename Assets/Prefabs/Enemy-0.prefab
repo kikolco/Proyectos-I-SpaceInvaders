@@ -115,8 +115,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   healthBar: {fileID: 6450360248868207767}
-  low: {r: 1, g: 0.1891472, b: 0.050943315, a: 0}
-  high: {r: 0, g: 0.735849, b: 0.116470106, a: 0}
+  low: {r: 1, g: 0.1891472, b: 0.050943315, a: 1}
+  high: {r: 0, g: 0.735849, b: 0.116470106, a: 1}
   Offset: {x: 0, y: 1.05, z: 0}
 --- !u!1 &3759378796786533035
 GameObject:
@@ -370,9 +370,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8517113908461676430}
   - component: {fileID: 8517113908461676431}
-  - component: {fileID: 8517113908461676424}
   - component: {fileID: 2347450333330736597}
   - component: {fileID: 5152486057812293114}
+  - component: {fileID: 392769106953030736}
   m_Layer: 0
   m_Name: Enemy-0
   m_TagString: Enemy
@@ -389,7 +389,7 @@ Transform:
   m_GameObject: {fileID: 8517113908461676427}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.49, y: 7.9, z: 0}
-  m_LocalScale: {x: 1.38, y: 1.38, z: 1.38}
+  m_LocalScale: {x: 4.75, y: 4.75, z: 4.75}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 5417051664959411024}
@@ -448,32 +448,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &8517113908461676424
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8517113908461676427}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.2, y: 0.8}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.98, y: 0.91}
-  m_EdgeRadius: 0
 --- !u!50 &2347450333330736597
 Rigidbody2D:
   serializedVersion: 4
@@ -492,9 +466,9 @@ Rigidbody2D:
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &5152486057812293114
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -508,15 +482,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ExplosionPrefab: {fileID: 4245205795460777510, guid: c5ada432a0a426345ac936a0af9cbb81, type: 3}
-  EnemyLaserPrefab: {fileID: 4402413623159725218, guid: 2b10cdee80454674aa474aa8d3d84dbc, type: 3}
+  EnemyLaserPrefab: {fileID: 6008218610074736575, guid: 2b10cdee80454674aa474aa8d3d84dbc, type: 3}
   PowerUpPrefab: {fileID: 5805841062749088825, guid: 9cf4c2c3a6a1be5438d7408b6a74466e, type: 3}
   fireTimer: 3
   maxHealth: 3
-  healthBar: {fileID: 6450360248868207767}
   verticalMoveSpeed: 3.5
   horizontalMoveSpeed: 1
   HealthBar: {fileID: 8855975624190548538}
   _enemyRigidbody: {fileID: 2347450333330736597}
+--- !u!61 &392769106953030736
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8517113908461676427}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.24, y: 0.16}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.24, y: 0.16}
+  m_EdgeRadius: 0
 --- !u!1 &9062182425371521998
 GameObject:
   m_ObjectHideFlags: 0

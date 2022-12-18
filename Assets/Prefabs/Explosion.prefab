@@ -4822,8 +4822,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4245205795460777509}
   - component: {fileID: 4245205795460777508}
-  - component: {fileID: 4245205795460777511}
-  - component: {fileID: 7289558387745388508}
+  - component: {fileID: -547476552602113901}
+  - component: {fileID: 3114837546044669665}
   m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
@@ -4899,27 +4899,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &4245205795460777511
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4245205795460777510}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a70099663b5dd814884d1b5316533130, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7289558387745388508
+--- !u!114 &-547476552602113901
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -4931,3 +4911,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fcfff5ad5dbde34586c2b0f5876f12f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &3114837546044669665
+Animator:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4245205795460777510}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ff17d899084a1bd4d8ac896dcff23d15, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

@@ -9,10 +9,12 @@ public class ScoreManager : MonoBehaviour
     public static ScoreManager instance;
 
     public Text scoreText;
+    public Text multiplierText;
     public Text highscoreText;
 
-    int score = 0;
+    public int score = 0;
     int highscore = 0;
+    int multiplier = 1;
 
     private void Awake() {
         instance = this;
@@ -29,9 +31,22 @@ public class ScoreManager : MonoBehaviour
     // Función pública para añadir puntos y guardar los highscore
     public void AddPoint() 
     {
-        score += 1;
+        score += (1 * multiplier);
         scoreText.text = score.ToString() + " POINTS";
         if (highscore < score)
             PlayerPrefs.SetInt("highscore", score);
+    }
+
+    public void AddMultiplier() 
+    {
+        multiplier += 1;
+        multiplierText.text = "X " + multiplier.ToString();
+        //gameObject.GetComponent<Animation>().Play("multiplier_add");
+    }
+
+    public void RemoveMultiplier() 
+    {
+        multiplier = 1;
+        multiplierText.text = "";
     }
 }
